@@ -1,0 +1,28 @@
+.postcard {
+    width: 450px;
+    border: red 1px solid;
+    border-radius: 1rem;
+    margin: 2rem;
+    padding: 0.5rem;
+
+    &__userDetails {
+        display: flex;
+        align-items: center;
+        margin: 0.5rem 0;
+
+        &__dp {
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+        }
+
+        &__username {
+            margin: 0 0.5rem;
+        }
+    }
+
+    &__post {
+        width: inherit;
+        border-radius: 0.75rem;
+    }
+}

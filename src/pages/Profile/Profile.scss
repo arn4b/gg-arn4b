@@ -1,0 +1,39 @@
+.profile {
+    &__top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__dp {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            margin: 1rem 2rem;
+        }
+
+        &__details {
+            &__name {
+                font-weight: 600;
+                font-size: 2rem;
+            }
+
+            &__stats {
+                & > span {
+                    margin-right: 1rem;
+                }
+            }
+
+            &__socials {
+                & > span {
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+
+    &__feed {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
