@@ -1,0 +1,24 @@
+.loading {
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px);
+
+    &__loader {
+        margin: 0 2rem;
+        @media (prefers-reduced-motion: no-preference) {
+            animation: logo-spin infinite 500ms linear;
+        }
+    }
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

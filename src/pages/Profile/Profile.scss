@@ -3,31 +3,79 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        width: 1200px;
+        margin: auto;
 
         &__dp {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 100%;
             margin: 1rem 2rem;
+            box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 1);
+
         }
 
         &__details {
+            text-align: center;
+
             &__name {
                 font-weight: 600;
                 font-size: 2rem;
+                margin: 1rem 0;
+
+                @media (max-width: 1156px) {
+                    font-size: 1.5rem;
+                }
+            }
+
+            &__username {
+                font-size: 1.25rem;
+                margin: 0.5rem 0;
+            }
+
+            &__bio {
+                font-weight: 600;
+                font-size: 1.25rem;
+                margin: 1rem 0;
+                width: 600px;
             }
 
             &__stats {
-                & > span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &>span {
                     margin-right: 1rem;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    margin: 0 2rem;
+                    font-size: 1.24rem;
+
+                    &>span {
+                        font-weight: 700;
+                        font-size: 3rem;
+
+                        @media (max-width: 1156px) {
+                            font-size: 1.5rem;
+                        }
+                    }
                 }
             }
 
             &__socials {
-                & > span {
-                    margin-right: 1rem;
+                margin-top: 2rem;
+
+                &>span {
+                    margin: 1rem 2rem;
+                    font-size: 2rem;
                 }
             }
+        }
+
+        @media (max-width: 1156px) {
+            width: 100%;
         }
     }
 

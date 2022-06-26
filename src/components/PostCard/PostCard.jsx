@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './PostCard.scss'
+import { BsEmojiHeartEyes } from 'react-icons/bs'
+import { BiCommentDots } from 'react-icons/bi'
 
 
-export default function PostCard() {
+export default function PostCard({ imgURL, userName, avatarURL, Ref }) {
+    var divStyle = {
+        backgroundImage: 'url(' + imgURL + ')'
+    }
+
     return (
         <div className='postcard'>
             <div className='postcard__userDetails'>
-                <img src='https://images.unsplash.com/photo-1653587106660-4908e9a7bae7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMzg3ODV8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTYwOTQ3NzM&ixlib=rb-1.2.1&q=80&w=1080' className='postcard__userDetails__dp' />
-                <span className='postcard__userDetails__username'>hey.arn4b</span>
+                <img src={`${avatarURL}`} className='postcard__userDetails__dp' />
+                <span className='postcard__userDetails__username'>
+                    <Link className='postcard__userDetails__username__link' to={{ pathname: `/users/${userName}` }}>
+                        {userName}
+                    </Link >
+                </span>
             </div>
-            <img className='postcard__post' src="https://images.unsplash.com/photo-1655365225179-fbc453d3bd58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMzg3ODV8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTYwOTEzMTg&ixlib=rb-1.2.1&q=80&w=1080" alt="" />
+            <div className='postcard__post' style={divStyle}></div>
             <div className='postcard__actions'>
-                <span>Like</span>
-                <span>Comment</span>
+                <span><BsEmojiHeartEyes className='postcard__actions__icon' /></span>
+                <span><BiCommentDots className='postcard__actions__icon' /></span>
             </div>
         </div>
     )

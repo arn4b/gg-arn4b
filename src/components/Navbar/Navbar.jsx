@@ -2,7 +2,7 @@ import React from 'react';
 // import { NavLogo, NavWrapper, ThemeToggle, Nav } from './NavbarStyles';
 // import { FaMoon } from 'react-icons/fa';
 // import { MdWbSunny } from 'react-icons/md';
-import './Navbar.css'
+import './Navbar.scss'
 
 // const Navbar = ({ toggleTheme, isDark }) => {
 const Navbar = () => {

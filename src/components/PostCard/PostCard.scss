@@ -1,9 +1,12 @@
 .postcard {
     width: 450px;
-    border: red 1px solid;
-    border-radius: 1rem;
+    border-radius: 12px;
     margin: 2rem;
     padding: 0.5rem;
+    border: 2px solid black;
+    box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 1);
+    background-color: #ffffff;
+    height: max-content;
 
     &__userDetails {
         display: flex;
@@ -18,11 +21,34 @@
 
         &__username {
             margin: 0 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+
+            &__link {
+                text-decoration: none;
+                color: black;
+            }
         }
     }
 
     &__post {
         width: inherit;
         border-radius: 0.75rem;
+        height: 300px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    &__actions {
+        font-size: 2rem;
+        margin-top: 0.5rem;
+        &__icon {
+            margin-right: 0.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 1rem;
     }
 }
