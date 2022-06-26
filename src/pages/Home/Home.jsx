@@ -53,10 +53,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        if (selectFeedData === null)
-            getFeedState();
-        else
-            setLoading(false)
+        getFeedState();
     }, [])
 
     return (
