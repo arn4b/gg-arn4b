@@ -19,6 +19,7 @@ export default function Profile() {
     const user = useSelector(selectUserData)
 
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState({})
 
     const params = useParams();
     const { userID } = params;
@@ -35,7 +36,8 @@ export default function Profile() {
                 setLoading(false)
             })
             .catch((error) => {
-                console.log(error)
+                setError(error.response.data)
+                setLoading(false)
             })
     }, [userID])
 
@@ -45,72 +47,79 @@ export default function Profile() {
                 ?
                 <Loading />
                 :
+                <div className='profile'>
+                    {
+                        user ?
+                            <div>
+                                <div className='profile__top'>
+                                    <img className='profile__top__dp' src={`${user.profile_image.large}`} />
 
-                <div>
-                    <div className='profile__top'>
-                        <img className='profile__top__dp' src={`${user.profile_image.large}`} />
+                                    <div className='profile__top__details'>
+                                        <div className='profile__top__details__name'>{user.name}</div>
+                                        <div className='profile__top__details__username'>@{user.username}</div>
+                                        <div className='profile__top__details__bio'>{user.bio}</div>
+                                        <div className='profile__top__details__stats'>
+                                            <span className='profile__top__details__stats__following'>Following
+                                                <span className='profile__top__details__stats__following__count'>
+                                                    {user.following_count}
+                                                </span>
+                                            </span>
+                                            <span className='profile__top__details__stats__followers'>Followers
+                                                <span className='profile__top__details__stats__following__count'>
+                                                    {user.followers_count}
+                                                </span>
+                                            </span>
+                                            <span className='profile__top__details__stats__posts'>Posts
+                                                <span className='profile__top__details__stats__following__count'>
+                                                    {user.photos.length}
+                                                </span>
+                                            </span>
+                                        </div>
 
-                        <div className='profile__top__details'>
-                            <div className='profile__top__details__name'>{user.name}</div>
-                            <div className='profile__top__details__username'>@{user.username}</div>
-                            <div className='profile__top__details__bio'>{user.bio}</div>
-                            <div className='profile__top__details__stats'>
-                                <span className='profile__top__details__stats__following'>Following
-                                    <span className='profile__top__details__stats__following__count'>
-                                        {user.following_count}
-                                    </span>
-                                </span>
-                                <span className='profile__top__details__stats__followers'>Followers
-                                    <span className='profile__top__details__stats__following__count'>
-                                        {user.followers_count}
-                                    </span>
-                                </span>
-                                <span className='profile__top__details__stats__posts'>Posts
-                                    <span className='profile__top__details__stats__following__count'>
-                                        {user.photos.length}
-                                    </span>
-                                </span>
+                                        <div className='profile__top__details__socials'>
+                                            {
+                                                user.instagram_username &&
+                                                <span className='profile__top__details__socials__insta'>
+                                                    <a href={`https://www.instagram.com/${user.instagram_username}`}>
+                                                        <BsInstagram />
+                                                    </a>
+                                                </span>
+                                            }
+                                            {
+
+                                                user.portfolio_url &&
+                                                <span className='profile__top__details__socials__portfolio'>
+                                                    <a href={user.portfolio_url}>
+                                                        <BsGlobe />
+                                                    </a>
+                                                </span>
+                                            }
+                                            {
+                                                user.twitter_username &&
+                                                <span className='profile__top__details__socials__twitter'>
+                                                    <a href={`https://www.twitter.com/${user.twitter_username}`}>
+                                                        <BsTwitter />
+                                                    </a>
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='profile__feed'>
+                                    {
+                                        Object.values(user.photos).map((userDetails, index) => {
+                                            return (
+                                                <LazyPost userName={userID} key={userDetails.id} imgURL={userDetails.urls.regular} avatarURL={user.profile_image.small} />
+                                            );
+                                        })
+                                    }
+                                </div>
                             </div>
+                            :
 
-                            <div className='profile__top__details__socials'>
-                                {
-                                    user.instagram_username &&
-                                    <span className='profile__top__details__socials__insta'>
-                                        <a href={`https://www.instagram.com/${user.instagram_username}`}>
-                                            <BsInstagram />
-                                        </a>
-                                    </span>
-                                }
-                                {
-
-                                    user.portfolio_url &&
-                                    <span className='profile__top__details__socials__portfolio'>
-                                        <a href={user.portfolio_url}>
-                                            <BsGlobe />
-                                        </a>
-                                    </span>
-                                }
-                                {
-                                    user.twitter_username &&
-                                    <span className='profile__top__details__socials__twitter'>
-                                        <a href={`https://www.twitter.com/${user.twitter_username}`}>
-                                            <BsTwitter />
-                                        </a>
-                                    </span>
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='profile__feed'>
-                        {
-                            Object.values(user.photos).map((userDetails, index) => {
-                                return (
-                                    <LazyPost userName={userID} key={userDetails.id} imgURL={userDetails.urls.regular} avatarURL={user.profile_image.small} />
-                                );
-                            })
-                        }
-                    </div>
+                            <h1 className='profile'>{error}</h1>
+                    }
                 </div>
             }
         </div>

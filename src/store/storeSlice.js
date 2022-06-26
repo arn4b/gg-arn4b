@@ -22,7 +22,11 @@ const feedSlice = createSlice({
     reducers: {
         setFeed: (state, action) => {
             state.feedData = action.payload
-        }
+        },
+
+        appendFeed: (state, action) => {
+            state.feedData = Object.assign(state.feedData, action.payload)
+        },
     }
 })
 
@@ -31,7 +35,8 @@ export const {
 } = userSlice.actions;
 
 export const {
-    setFeed
+    setFeed,
+    appendFeed
 } = feedSlice.actions;
 
 export const selectUserData = (state) => state.user.userData;

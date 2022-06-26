@@ -5,7 +5,7 @@ import './Home.scss'
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setFeed, selectFeedData } from '../../store/storeSlice';
+import { setFeed, selectFeedData, appendFeed } from '../../store/storeSlice';
 import Loading from '../../components/Loading/Loading';
 
 const LazyPost = React.lazy(() => import('../../components/PostCard/PostCard'))
@@ -16,7 +16,8 @@ export default function Home() {
 
     const dispatch = useDispatch();
 
-    // -------------- infinite scrolling--------------------//
+    // INFINIE SCROLL IMPLEMENTATION
+
     const observer = useRef();
 
     const lastFeedRef = useCallback(
@@ -24,7 +25,6 @@ export default function Home() {
             if (observer.current) observer.current.disconnect();
             observer.current = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
-                    console.log('Intersecting');
                     getFeedState()
                 }
             });
@@ -33,9 +33,9 @@ export default function Home() {
         []
     );
 
-    // -----------------------------------------------------------------------//
-
     const [loading, setLoading] = useState(true)
+
+    const [error, setError] = useState({})
 
     function getFeedState() {
         axios.get(`${process.env.REACT_APP_BASE_URL}photos/random?count=10`, {
@@ -44,16 +44,29 @@ export default function Home() {
             }
         })
             .then((response) => {
-                dispatch(setFeed(response.data))
-                setLoading(false)
+                if (posts == null) {
+                    dispatch(setFeed(response.data))
+                    console.log("posts null");
+                    setLoading(false)
+                }
+                else {
+                    console.log("posts not null");
+                    dispatch(appendFeed(response.data))
+                }
             })
             .catch((error) => {
-                console.log(error)
+                setError(error.response.data)
+                setLoading(false)
             })
     }
 
     useEffect(() => {
-        getFeedState();
+        if (posts == null) {
+            getFeedState()
+        }
+        else {
+            setLoading(false)
+        }
     }, [])
 
     return (
@@ -63,11 +76,40 @@ export default function Home() {
                     ?
                     <Loading />
                     :
-                    Object.values(posts).map((post, index) => {
-                        return (
-                            <LazyPost Ref={lastFeedRef} userName={post.user.username} key={post.id} imgURL={post.urls.regular} avatarURL={post.user.profile_image.small} />
-                        );
-                    })
+                    <div className='home'>
+                        {
+                            posts
+                                ?
+                                Object.values(posts).map((post, index) => {
+                                    if (Object.values(posts).length === index + 1) {
+                                        return (
+                                            <Suspense fallback={<Loading />}>
+                                                <LazyPost
+                                                    Ref={lastFeedRef}
+                                                    userName={post.user.username}
+                                                    key={post.id}
+                                                    imgURL={post.urls.regular}
+                                                    avatarURL={post.user.profile_image.small}
+                                                />
+                                            </Suspense>
+                                        );
+                                    } else {
+                                        return (
+                                            <Suspense fallback={<Loading />}>
+                                                <LazyPost
+                                                    userName={post.user.username}
+                                                    key={post.id}
+                                                    imgURL={post.urls.regular}
+                                                    avatarURL={post.user.profile_image.small}
+                                                />
+                                            </Suspense>
+                                        );
+                                    }
+                                })
+                                :
+                                <h1>{error}</h1>
+                        }
+                    </div>
             }
         </div>
     )

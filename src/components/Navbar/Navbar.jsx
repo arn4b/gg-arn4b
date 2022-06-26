@@ -1,15 +1,14 @@
 import React from 'react';
-// import { NavLogo, NavWrapper, ThemeToggle, Nav } from './NavbarStyles';
-// import { FaMoon } from 'react-icons/fa';
-// import { MdWbSunny } from 'react-icons/md';
+import growwlogo from '../../logo-groww.png'
 import './Navbar.scss'
 
 // const Navbar = ({ toggleTheme, isDark }) => {
 const Navbar = () => {
     return (
         <div className='navbar'>
-            <div>GrowwGram</div>
-            <div>Theme</div>
+            <div className='navbar__div'>
+                <img src={growwlogo} className='navbar__logo' />
+                GrowwGram</div>
         </div>
     );
 };

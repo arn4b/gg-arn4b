@@ -34,7 +34,7 @@
     &__post {
         width: inherit;
         border-radius: 0.75rem;
-        height: 300px;
+        height: 100%;
         background-size: 100%;
         background-repeat: no-repeat;
     }
@@ -44,6 +44,7 @@
         margin-top: 0.5rem;
         &__icon {
             margin-right: 0.5rem;
+            cursor: pointer;
         }
     }
 

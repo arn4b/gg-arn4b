@@ -6,12 +6,9 @@ import { BiCommentDots } from 'react-icons/bi'
 
 
 export default function PostCard({ imgURL, userName, avatarURL, Ref }) {
-    var divStyle = {
-        backgroundImage: 'url(' + imgURL + ')'
-    }
 
     return (
-        <div className='postcard'>
+        <div className='postcard' ref={Ref}>
             <div className='postcard__userDetails'>
                 <img src={`${avatarURL}`} className='postcard__userDetails__dp' />
                 <span className='postcard__userDetails__username'>
@@ -20,9 +17,9 @@ export default function PostCard({ imgURL, userName, avatarURL, Ref }) {
                     </Link >
                 </span>
             </div>
-            <div className='postcard__post' style={divStyle}></div>
+            <img className='postcard__post' src={`${imgURL}`} alt="" />
             <div className='postcard__actions'>
-                <span><BsEmojiHeartEyes className='postcard__actions__icon' /></span>
+                <span><BsEmojiHeartEyes className='postcard__actions__icon'/></span>
                 <span><BiCommentDots className='postcard__actions__icon' /></span>
             </div>
         </div>
